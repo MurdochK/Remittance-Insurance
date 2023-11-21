@@ -89,3 +89,69 @@ contract InsuranceContract {
 }
 
 #try find the telematics code to integrate to this then run
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+pragma solidity ^0.8.0;
+
+contract InsurancePolicy {
+
+// The address of the policyholder
+address public policyholder;
+
+// The address of the insurance company
+address public insuranceCompany;
+
+// The start date of the policy
+uint256 public startDate;
+
+// The end date of the policy
+uint256 public endDate;
+
+// The amount of the policy
+uint256 public amount;
+
+// The status of the policy
+enum Status { ACTIVE, INACTIVE, EXPIRED }
+Status public status;
+
+// An event to emit when the policy is created
+event PolicyCreated(address policyholder, address insuranceCompany, uint256 amount);
+
+// An event to emit when the policy is cancelled
+event PolicyCancelled(address policyholder, address insuranceCompany);
+
+// An event to emit when the policy is paid out
+event PolicyPaidOut(address policyholder, address insuranceCompany, uint256 amount);
+
+// Constructor function
+constructor(address _policyholder, address _insuranceCompany, uint256 _amount) {
+    policyholder = _policyholder;
+    insuranceCompany = _insuranceCompany;
+    amount = _amount;
+    startDate = block.timestamp;
+    endDate = startDate + 5 years;
+    status = Status.ACTIVE;
+    emit PolicyCreated(policyholder, insuranceCompany, amount);
+}
+
+// Function to cancel the policy
+function cancelPolicy() public {
+    require(msg.sender == policyholder, "Only the policyholder can cancel the policy");
+    require(status == Status.ACTIVE, "Policy is not active");
+    status = Status.INACTIVE;
+    emit PolicyCancelled(policyholder, insuranceCompany);
+}
+
+// Function to pay out the policy
+function payOutPolicy() public {
+    require(msg.sender == insuranceCompany, "Only the insurance company can pay out the policy");
+    require(status == Status.ACTIVE, "Policy is not active");
+    require(block.timestamp >= endDate, "Policy has not expired");
+    status = Status.EXPIRED;
+    insuranceCompany.transfer(amount);
+    emit PolicyPaidOut(policyholder, insuranceCompany, amount);
+}
+}
