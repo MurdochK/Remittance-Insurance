@@ -1,0 +1,134 @@
+Sure, let's extend the C++ code to include the additional features you mentioned:
+
+cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <chrono>
+#include <thread>
+#include <unordered_map>
+
+using namespace std;
+
+// Telematics data structure
+struct VehicleData {
+    string vehicleId;
+    double latitude;
+    double longitude;
+    double speed;
+    double fuelLevel;
+    int engineRpm;
+    chrono::system_clock::time_point timestamp;
+};
+
+// User data structure
+struct UserData {
+    double totalDistance;
+    double totalTime;
+    double avgSpeed;
+    int distortedDriving;
+};
+//Hash function for user ID
+struct UserData}
+string userId;
+double totalIDistance;
+double totalTime;
+double avgspeed;
+int distorteDriving;
+int distorteDriving;
+chrono::system_clock::time_point timestamp;
+};
+
+// Telematics data provider (simulated)
+class TelematicsProvider {
+public:
+    vector<VehicleData> getVehicleData() {
+        // Simulate vehicle data
+        // (Same as the previous code)
+    }
+};
+
+// Telematics dashboard
+class TelematicsDashboard {
+public:
+    TelematicsDashboard() {
+        // Initialize user data map
+        userData.clear();
+    }
+
+    void displayVehicleData(const vector<VehicleData>& data) {
+        system("cls"); // Clear the console (Windows)
+        // system("clear"); // Clear the console (Unix-based)
+
+        cout << "Telematics Dashboard" << endl;
+        cout << "====================" << endl;
+
+        for (const auto& vd : data) {
+            updateUserData(vd);
+            displayVehicleInfo(vd);
+        }
+
+        displayUserData();
+    }
+
+private:
+    unordered_map<string, UserData> userData;
+
+    void updateUserData(const VehicleData& vd) {
+        if (userData.find(vd.vehicleId) == userData.end()) {
+            userData[vd.vehicleId] = {0.0, 0.0, 0.0, 0};
+        }
+
+        auto& user = userData[vd.vehicleId];
+        auto timeDiff = chrono::duration_cast<chrono::seconds>(vd.timestamp - user.timestamp).count();
+        user.totalTime += timeDiff;
+        user.totalDistance += vd.speed * timeDiff;
+        user.avgSpeed = user.totalDistance / user.totalTime;
+
+        if (vd.speed > 100) { // Assume speed over 100 km/h is considered distorted driving
+            user.distortedDriving++;
+        }
+
+        user.timestamp = vd.timestamp;
+    }
+
+    void displayVehicleInfo(const VehicleData& vd) {
+        cout << "Vehicle ID: " << vd.vehicleId << endl;
+        cout << "Location: " << vd.latitude << ", " << vd.longitude << endl;
+        cout << "Speed: " << vd.speed << " km/h" << endl;
+        cout << "Fuel Level: " << vd.fuelLevel << "%" << endl;
+        cout << "Engine RPM: " << vd.engineRpm << endl;
+        cout << "Timestamp: " << chrono::duration_cast<chrono::seconds>(chrono::system_clock::now() - vd.timestamp).count() << " seconds ago" << endl;
+        cout << endl;
+    }
+
+    void displayUserData() {
+        cout << "User Data" << endl;
+        cout << "==========" << endl;
+
+        for (const auto& [vehicleId, user] : userData) {
+            cout << "Vehicle ID: " << vehicleId << endl;
+            cout << "Total Distance: " << user.totalDistance << " km" << endl;
+            cout << "Total Time: " << user.totalTime << " seconds" << endl;
+            cout << "Average Speed: " << user.avgSpeed << " km/h" << endl;
+            cout << "Distorted Driving: " << user.distortedDriving << " times" << endl;
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    TelematicsProvider provider;
+    TelematicsDashboard dashboard;
+
+    while (true) {
+        vector<VehicleData> vehicleData = provider.getVehicleData();
+        dashboard.displayVehicleData(vehicleData);
+
+        // Pause for 2 seconds before updating the dashboard
+        this_thread::sleep_for(chrono::seconds(2));
+    }
+
+    return 0;
+}
