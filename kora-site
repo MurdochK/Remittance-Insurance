@@ -1,0 +1,65 @@
+import React from 'react';
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src="logo.png" alt="Kora InsuTech" className="logo" />
+      </header>
+
+      <nav>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Contacts</a>
+        <a href="#">Team</a>
+      </nav>
+
+      <main>
+        <section id="about">
+          <h2>About Kora InsuTech</h2>
+          <p>
+            Kora InsuTech is a software company that provides usage-based insurance
+            solutions powered by telematics and smart contracts. We lend and manage
+            the necessary technology and data for our clients on a contract basis,
+            helping them optimize their insurance offerings and improve customer
+            experience.
+          </p>
+        </section>
+
+        <section id="blog">
+          <h2>Latest from our Blog</h2>
+          {/* Add blog post content here */}
+        </section>
+
+        <section id="contacts">
+          <h2>Contact Us</h2>
+          {/* Add contact form or information here */}
+        </section>
+
+        <section id="team">
+          <h2>Our Team</h2>
+          <div className="team-members">
+            <div className="team-member">
+              <img src="team-member1.jpg" alt="Team Member 1" />
+              <h3>John Doe</h3>
+              <p>CEO</p>
+            </div>
+            <div className="team-member">
+              <img src="team-member2.jpg" alt="Team Member 2" />
+              <h3>Jane Smith</h3>
+              <p>CTO</p>
+            </div>
+            {/* Add more team members here */}
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2023 Kora InsuTech. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
