@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telematics Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+        }
+        
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content {
+            flex: 1;
+        }
+        
+        .detail>div {
+            padding: 20px;
+            /* Increased padding for more height */
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            min-height: 50px;
+            /* Ensuring a minimum height */
+        }
+        
+        .detail>label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="bg-primary text-white text-center py-3">
+            <h1>Telematics Dashboard</h1>
+        </header>
+
+        <div class="content container mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="client-list card">
+                        <div class="card-header">
+                            <h2 class="card-title">Clients</h2>
+                        </div>
+                        <ul id="client-list" class="list-group list-group-flush">
+                            <!-- Client list items will be added here -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="client-details card">
+                        <div class="card-header">
+                            <h2 class="card-title">Client Details</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="detail mb-3">
+                                <label for="location">Location:</label>
+                                <!-- <div id="location" class="p-2"></div> -->
+                            </div>
+                            <div class="detail mb-3">
+                                <label for="driving-status">Driving Status:</label>
+                                <!-- <div id="driving-status" class="p-2"></div> -->
+                            </div>
+                            <div class="detail mb-3">
+                                <label for="average-speed">Average Speed:</label>
+                                <!-- <div id="average-speed" class="p-2"></div> -->
+                            </div>
+                            <div class="detail mb-3">
+                                <label for="vehicle-weight">Vehicle Weight:</label>
+                                <!-- <div id="vehicle-weight" class="p-2"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-dark text-white text-center py-3 mt-4">
+            <p>&copy; 2024 Telematics Dashboard. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
