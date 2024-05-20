@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <cmath>
+
+using namespace std;
+
+// Client struct to hold client information
+struct Client {
+    string name;
+    string policyNumber;
+    int yearsOfPremiums;
+    double location[2]; // Latitude, Longitude
+    double weight;
+    bool isDrivingUnderInfluence;
+    double averageDrivingSpeed;
+};
+
+class TelematicsDashboard {
+private:
+    vector<Client> clients;
+    unordered_map<string, int> clientIndex;
+
+public:
+    // Add a new client to the dashboard
+    void addClient(const Client& client) {
+        clients.push_back(client);
+        clientIndex[client.policyNumber] = clients.size() - 1;
+    }
+
+    // Get the current location of a client
+    const double* getClientLocation(const string& policyNumber) {
+        int index = clientIndex[policyNumber];
+        return clients[index].location;
+    }
+
+    // Check if a client is driving under the influence
+    bool isClientDrivingUnderInfluence(const string& policyNumber) {
+        int index = clientIndex[policyNumber];
+        return clients[index].isDrivingUnderInfluence;
+    }
+
+    // Get the average driving speed of a client
+    double getClientAverageDrivingSpeed(const string& policyNumber) {
+        int index = clientIndex[policyNumber];
+        return clients[index].averageDrivingSpeed;
+    }
+
+    // Get the weight of a client's vehicle
+    double getClientVehicleWeight(const string& policyNumber) {
+        int index = clientIndex[policyNumber];
+        return clients[index].weight;
+    }
+
+    // Generate reports and analytics
+    void generateReports() {
+        // Implement report generation logic here
+    }
+};
+
+int main() {
+    TelematicsDashboard dashboard;
+
+    // Add some sample clients
+    Client client1 = {"Rosemary Nambuva", "ABC123", 5, {40.730610, -73.935242}, 2000.0, false, 55.0};
+    Client client2 = {"John Kiarie", "DEF456", 7, {37.774929, -122.419416}, 1800.0, true, 45.0};
+    Client client3 = {"Magdalene Mumbi", "GHI789", 3, {51.507351, -0.127758}, 2200.0, false, 60.0};
+
+    dashboard.addClient(client1);
+    dashboard.addClient(client2);
+    dashboard.addClient(client3);
+
+    // Example usage
+    cout << "Client 1 location: " << dashboard.getClientLocation("ABC123")[0] << ", " << dashboard.getClientLocation("ABC123")[1] << endl;
+    cout << "Client 2 is driving under influence: " << dashboard.isClientDrivingUnderInfluence("DEF456") << endl;
+    cout << "Client 3 average driving speed: " << dashboard.getClientAverageDrivingSpeed("GHI789") << endl;
+    cout << "Client 1 vehicle weight: " << dashboard.getClientVehicleWeight("ABC123") << endl;
+
+    dashboard.generateReports();
+
+    return 0;
+}
