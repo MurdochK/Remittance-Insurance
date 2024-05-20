@@ -132,3 +132,62 @@ int main() {
 
     return 0;
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////after being triggered in a peril event/////////////////////////////////////////////////
+#include <iostream>
+#include <string>
+#include <vector>
+#include <chrono>
+#include <ctime>
+
+using namespace std;
+
+// Telematics data structure
+struct VehicleData {
+    string vehicleID;
+    double latitude;
+    double longitude;
+    double speed;
+    double fuelLevel;
+    int engineStatus;
+    string timestamp;
+};
+
+// Function to handle peril event
+void handlePerilEvent(VehicleData& vehicleData) {
+    // Get the current time
+    auto now = chrono::system_clock::now();
+    time_t now_c = chrono::system_clock::to_time_t(now);
+    vehicleData.timestamp = ctime(&now_c);
+
+    // Update telematics data
+    vehicleData.speed = 0.0; // Vehicle stopped due to peril
+    vehicleData.engineStatus = 0; // Engine turned off
+
+    // Display telematics dashboard
+    cout << "Telematics Dashboard:" << endl;
+    cout << "Vehicle ID: " << vehicleData.vehicleID << endl;
+    cout << "Location: (" << vehicleData.latitude << ", " << vehicleData.longitude << ")" << endl;
+    cout << "Speed: " << vehicleData.speed << " km/h" << endl;
+    cout << "Fuel Level: " << vehicleData.fuelLevel << "%" << endl;
+    cout << "Engine Status: " << (vehicleData.engineStatus ? "On" : "Off") << endl;
+    cout << "Timestamp: " << vehicleData.timestamp << endl;
+}
+
+int main() {
+    // Sample vehicle data
+    VehicleData vehicleData = {
+        "VehicleA",
+        37.7749,
+        -122.4194,
+        80.0,
+        75.0,
+        1,
+        ""
+    };
+
+    // Trigger peril event
+    handlePerilEvent(vehicleData);
+
+    return 0;
+}
